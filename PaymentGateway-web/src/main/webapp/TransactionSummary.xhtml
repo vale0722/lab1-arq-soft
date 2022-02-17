@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <style type="text/css">
+        .buttons {
+            display: flex;
+            gap: 50px;
+        }
+
+        .flex {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    </style>
+    <h:head>
+        <title>Resumen</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <div class="flex">
+                    <h1>Resumen del Pago</h1>
+                    <div>
+                        <div>
+                            <h3>Id del Cliente</h3>
+                            <h:outputText value="#{userMBean.transaction.client_id.id}"/>
+                        </div>
+                        <div>
+                            <h3>Nombre del Cliente</h3>
+                            <h:outputText value="#{userMBean.transaction.client_id.client_name}"/>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <h3>Correo Electrónico Cliente</h3>
+                            <h:outputText value="#{userMBean.transaction.client_id.email}"/>
+                        </div>
+                        <div>
+                            <h3>Número de Tarjeta</h3>
+                            <h:outputText value="#{userMBean.transaction.card_id.number}"/>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <h3>Tipo de tarjeta</h3>
+                            <h:outputText value="#{userMBean.card_type}"/>
+                            <h:outputText rendered="#{userMBean.card_type eq ''}" value="Tipo de Tarjeta no válida"/>
+                        </div>
+                        <div>
+                            <h3>Valor del Pago</h3>
+                            <h:outputText value="#{userMBean.transaction.value}"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="buttons">
+                        <div>
+                            <h:commandButton value="Atras" action="#{userMBean.goBack()}" />
+                        </div>
+                        <div>
+                            <h:commandButton value="Guardar" action="#{userMBean.confirm()}" disabled="#{userMBean.cardType eq ''}"/>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+

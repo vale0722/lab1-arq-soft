@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <managed-bean>
+        <managed-bean-name>userMBean</managed-bean-name>
+        <managed-bean-class>udea.labs.controller.UserMBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <navigation-rule>
+        <from-view-id>/NewTransaction.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>RESUME</from-outcome>
+            <to-view-id>/TransactionSummary.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/TransactionSummary.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>VIEW</from-outcome>
+            <to-view-id>/NewTransaction.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>INDEX</from-outcome>
+            <to-view-id>/TransactionList.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/TransactionList.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>NEW</from-outcome>
+            <to-view-id>/NewTransaction.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

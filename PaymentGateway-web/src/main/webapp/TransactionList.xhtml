@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Lista de Transacciones</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Lista de Transacciones"/></h1>
+                <p:dataTable value="#{userMBean.transaction}" var="item" 
+                             style="margin-bottom: 20px" 
+                             paginator="true"
+                             rows="10"
+                             scrollable="true"
+                             rendered="true"
+                             resizableColumns="true"
+                             emptyMessage="No hay datos disponibles"
+                             widgetVar="transactionTable">
+                    <p:column headerText="Número de Transacción"
+                              sortBy="#{item.id}">
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+                    <p:column headerText="Código QR">
+                        <p:barcode 
+                            value="Identificacion: #{item.card_id.id} - Valor: $#{item.value} - Fecha: #{item.transaction_date}" 
+                            type="qr"
+                            height="150px"
+                            width="150px"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID del Cliente"/>
+                        </f:facet>
+                        <h:outputText value="#{item.card_id.id}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nombre del Cliente"/>
+                        </f:facet>
+                        <h:outputText value="#{item.card_id.client_name}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Número Tarjeta"/>
+                        </f:facet>
+                        <h:outputText value="#{item.card_id.number}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Valor"/>
+                        </f:facet>
+                        <h:outputText value="$ #{item.value}"/>
+                    </p:column>
+                </p:dataTable>
+                <h:commandButton value="Crear Transacción" action="#{userMBean.newTransaction()}" />
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+

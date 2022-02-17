@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <style type="text/css">
+        .flex {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 50px;
+        }
+    </style>
+    <h:head>
+        <title>Nueva Transacción</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <div class="flex">
+                    <div class="flex">
+                        <p:outputLabel for="client_id" value="ID del Cliente"/>
+                        <p:inputText id="client_id" value="#{userMBean.transaction.client_id.id}" autocomplete="off"
+                                     validatorMessage="Debe ingresar un cliente"/>
+                    </div>
+                    <div class="flex">
+                        <p:outputLabel for="client_name" value="Nombre del Cliente"/>
+                        <p:inputText id="client_name"  value="#{userMBean.transaction.client_id.client_name}" autocomplete="off"
+                                     validatorMessage="Debe ingresar un nombre"/>
+                    </div>
+                    <div class="flex">
+                        <p:outputLabel for="client_email" value="Correo electrónico del Cliente"/>
+                        <p:inputText id="client_email"  value="#{userMBean.transaction.client_id.email}" autocomplete="off"
+                                     validatorMessage="Debe ingresar un correo electrónico"/>
+                    </div>
+                    <div class="flex">
+                        <p:outputLabel for="card_id" value="Número de Tarjeta"/>
+                        <p:inputText id="card_id" 
+                                     value="#{userMBean.transaction.card_id.number}" 
+                                     onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;"
+                                     validatorMessage="El número de tarjeta debe tener entre 10 y 16 dígitos"
+                                     autocomplete="off">
+                            <f:validateLength minimum="10" maximum="16" />
+                        </p:inputText>
+                    </div>
+                    <div class="flex">
+                        <p:outputLabel for="cvv" value="CVV"/>
+                        <p:inputText id="cvv" value="#{userMBean.transaction.card_id.cvv}" 
+                                     onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;"
+                                     maxlength="3" 
+                                     validatorMessage="El CVV debe tener 3 dígitos" 
+                                     autocomplete="off">
+                            <f:validateLength minimum="3" maximum="3" />
+                        </p:inputText>
+                    </div>
+                    <div class="flex">
+                        <p:outputLabel for="expiration_date" value="Fecha Expiración"/>
+                        <p:inputText id="expiration_date" 
+                                     value="#{userMBean.transaction.card_id.expiration}" 
+                                     autocomplete="off" 
+                                     placeholder="MM/yy" 
+                                     validatorMessage="La fecha de expiración debe estar en el formato correcto"
+                                     maxlength="5">
+                            <f:validateLength minimum="5" maximum="5" />
+                        </p:inputText>
+                    </div>
+                    <div class="flex">
+                        <p:outputLabel for="value" value="Valor Total"/>
+                        <p:inputText id="value" 
+                                     onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;" 
+                                     value="#{userMBean.transaction.value}" 
+                                     validatorMessage="El valor debe estar entre $500 y $10000" autocomplete="off">
+                            <f:validateLongRange minimum="500" maximum="10000"/>
+                        </p:inputText>
+                    </div>
+                    <div class="flex">
+                        <p:messages id="msg"/>
+                        <p:captcha></p:captcha>
+                    </div>
+                    <br/>
+                    <div class="buttons">
+                        <div>
+                            <h:commandButton id="continue" value="Pagar" action="#{userMBean.continueTransaction()}" />
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+
